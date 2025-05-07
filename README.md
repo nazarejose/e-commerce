@@ -1,6 +1,6 @@
-
 ## 1 - Estrutura do Projeto
 
+```
 e-commerce/
 ├── public/
 │   └── favicon.ico
@@ -42,3 +42,4 @@ e-commerce/
 ├── tailwind.config.ts (opcional)
 ├── package.json
 └── README.md
+```
