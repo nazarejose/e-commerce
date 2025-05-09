@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import LogoDC from "@/assets/logo-header.svg";
-import Cart from "@/assets/mini-cart.svg";
+import { HeaderLogo, Cart } from "@/assets";
 import Image from "next/image";
 import Link from "next/link";
 import { Search, Menu, X } from "lucide-react";
@@ -19,7 +18,7 @@ export default function Header() {
       <div className="hidden lg:flex flex-col w-full justify-between">
         <div className="flex w-full h-[196px] items-center gap-3.5 justify-self-center-safe">
           <Image
-            src={LogoDC}
+            src={HeaderLogo}
             className="w-[253px] h-[44px]"
             alt="Digital College"
           />
@@ -48,10 +47,8 @@ export default function Header() {
           <div className="relative w-[33px] h-[29px]">
             <Image
               src={Cart}
-              width={24}
-              height={24}
               alt="Cart"
-              className="rounded-lg"
+              className="rounded-lg w-6 h-6"
             />
             <div className="absolute -top-1.5 -right-0.5 left w-[17px] h-[17px] bg-primary rounded-full border-0 text-center text-smooth-white text-xs font-bold">
               2
@@ -112,7 +109,7 @@ export default function Header() {
             {isOpenMenu ? <X size={20} /> : <Menu size={20} />}
           </button>
           <Image
-            src={LogoDC}
+            src={HeaderLogo}
             className="w-[100px] h-[24px]"
             alt="Digital College"
           />
@@ -130,10 +127,8 @@ export default function Header() {
             <div className="relative top-1 w-[33px] h-[29px]">
               <Image
                 src={Cart}
-                width={20}
-                height={20}
                 alt="Cart"
-                className=""
+                className="h-5 w-5"
               />
               <div className="absolute -top-1.5 right-0.5 left w-[15px] h-[15px] bg-primary rounded-full border-0 text-center text-smooth-white text-[10px] font-bold">
                 2
