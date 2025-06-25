@@ -38,7 +38,7 @@ export function ProductCard({
             src={image || "/placeholder.svg"}
             alt={title}
             fill
-            className="object-contain group-hover:scale-105 transition-transform duration-300"
+            className="object-contain scale-75 group-hover:scale-95 transition-transform duration-300 -rotate-[30deg]"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
           />
         </div>
@@ -47,7 +47,7 @@ export function ProductCard({
           <p className="text-xs text-gray-500 uppercase tracking-wide font-medium">
             {category}
           </p>
-          <h3 className="text-sm font-medium text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
+          <h3 className="text-sm font-medium text-gray-900 line-clamp-2 group-hover:text-primary transition-colors">
             {title}
           </h3>
 

@@ -1,55 +1,62 @@
-"use client";
-import React, { useState } from "react";
-import { HeaderLogo, Cart } from "@/assets";
-import Image from "next/image";
-import Link from "next/link";
-import { Search, Menu, X } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+"use client"
+import type React from "react"
+import { useState } from "react"
+import { HeaderLogo, Cart } from "@/assets"
+import Image from "next/image"
+import Link from "next/link"
+import { Search, Menu, X } from "lucide-react"
+import { usePathname, useRouter } from "next/navigation"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 
 export default function Header() {
-  const currentRoute = usePathname();
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const currentRoute = usePathname()
+  const [isOpenMenu, setIsOpenMenu] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [searchValue, setSearchValue] = useState("")
+
+  const router = useRouter()
+
+  const handleSearch = () => {
+    if (searchValue.trim()) {
+      router.push(`/products?filter=${encodeURIComponent(searchValue.trim())}`)
+    }
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleSearch()
+    }
+  }
+
   return (
     <>
       {/* desktop */}
       <div className="hidden lg:flex flex-col w-full justify-between">
         <div className="flex w-full h-[196px] items-center gap-3.5 justify-self-center-safe">
-          <Image
-            src={HeaderLogo}
-            className="w-[253px] h-[44px]"
-            alt="Digital College"
-          />
+          <Image src={HeaderLogo || "/placeholder.svg"} className="w-[253px] h-[44px]" alt="Digital College" />
           <div className="flex w-full space-x-2 bg-light-gray-3 rounded-lg pl-6 pr-4 flex-1">
             <Input
-              type="email"
+              type="text"
               placeholder="Pesquisar produto..."
               className="w-full h-14 border-0 placeholder:text-light-gray-2 focus-visible:ring-0 flex"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              onKeyPress={handleKeyPress}
             />
-            <button type="submit" className="pr-4">
-              <Search className="text-light-gray-2" />
+            <button type="button" className="pr-4" onClick={handleSearch}>
+              <Search className="text-light-gray-2 cursor-pointer" />
             </button>
           </div>
           <div className="items-center">
-            <Link
-              href="#register"
-              className="underline pl-[48px] pr-[30px] whitespace-nowrap"
-            >
+            <Link href="#register" className="underline pl-[48px] pr-[30px] whitespace-nowrap">
               Cadastre-se
             </Link>
-            <Button className="bg-primary antialiased text-smooth-white w-28 h-10 mr-[70px]">
-              Entrar
-            </Button>
+            <Button className="bg-primary antialiased text-smooth-white w-28 h-10 mr-[70px]">Entrar</Button>
           </div>
 
           <div className="relative w-[33px] h-[29px]">
-            <Image
-              src={Cart}
-              alt="Cart"
-              className="rounded-lg w-6 h-6"
-            />
+            <Image src={Cart || "/placeholder.svg"} alt="Cart" className="rounded-lg w-6 h-6" />
             <div className="absolute -top-1.5 -right-0.5 left w-[17px] h-[17px] bg-primary rounded-full border-0 text-center text-smooth-white text-xs font-bold">
               2
             </div>
@@ -67,9 +74,7 @@ export default function Header() {
           <Link
             href={"/products"}
             className={`${
-              currentRoute === "/products"
-                ? "border-b-2 font-bold text-primary"
-                : ""
+              currentRoute === "/products" ? "border-b-2 font-bold text-primary" : ""
             } font-normal hover:border-b-2 hover:font-bold hover:text-primary duration-100 ease-out`}
           >
             Produtos
@@ -77,9 +82,7 @@ export default function Header() {
           <Link
             href={"/categories"}
             className={`${
-              currentRoute === "/categories"
-                ? "border-b-2 font-bold text-primary"
-                : ""
+              currentRoute === "/categories" ? "border-b-2 font-bold text-primary" : ""
             } font-normal hover:border-b-2 hover:font-bold hover:text-primary duration-100 ease-out`}
           >
             Categorias
@@ -87,9 +90,7 @@ export default function Header() {
           <Link
             href={"/my-orders"}
             className={`${
-              currentRoute === "/my-orders"
-                ? "border-b-2 font-bold text-primary"
-                : ""
+              currentRoute === "/my-orders" ? "border-b-2 font-bold text-primary" : ""
             } font-normal hover:border-b-2 hover:font-bold hover:text-primary duration-100 ease-out`}
           >
             Meus pedidos
@@ -102,34 +103,28 @@ export default function Header() {
         <div className="flex w-full justify-between items-center py-5">
           <button
             onClick={() => {
-              setIsOpenMenu(!isOpenMenu);
+              setIsOpenMenu(!isOpenMenu)
             }}
             className="pr-16"
           >
             {isOpenMenu ? <X size={20} /> : <Menu size={20} />}
           </button>
-          <Image
-            src={HeaderLogo}
-            className="w-[100px] h-[24px]"
-            alt="Digital College"
-          />
+          <Image src={HeaderLogo || "/placeholder.svg"} className="w-[100px] h-[24px]" alt="Digital College" />
           <div className="flex flex-row gap-[13px] pl-8">
             <button
-              type="submit"
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
+              type="button"
+              onClick={() => {
+                if (isSearchOpen && searchValue.trim()) {
+                  handleSearch()
+                } else {
+                  setIsSearchOpen(!isSearchOpen)
+                }
+              }}
             >
-              <Search
-                className={`w-5 h-5 transition-colors ${
-                  isSearchOpen ? "text-primary" : "text-light-gray-2"
-                }`}
-              />
+              <Search className={`w-5 h-5 transition-colors ${isSearchOpen ? "text-primary" : "text-light-gray-2"}`} />
             </button>
             <div className="relative top-1 w-[33px] h-[29px]">
-              <Image
-                src={Cart}
-                alt="Cart"
-                className="h-5 w-5"
-              />
+              <Image src={Cart || "/placeholder.svg"} alt="Cart" className="h-5 w-5" />
               <div className="absolute -top-1.5 right-0.5 left w-[15px] h-[15px] bg-primary rounded-full border-0 text-center text-smooth-white text-[10px] font-bold">
                 2
               </div>
@@ -145,16 +140,12 @@ export default function Header() {
 
               <div className="fixed top-[69px] left-0 h-[calc(100vh-69px)] w-3/4 bg-white z-50 p-6 flex flex-col justify-between overflow-y-auto">
                 <div>
-                  <p className="text-sm font-bold mb-4 text-zinc-800">
-                    Páginas
-                  </p>
+                  <p className="text-sm font-bold mb-4 text-zinc-800">Páginas</p>
                   <div className="space-y-4 flex flex-col ease-in-out">
                     <Link
                       href={"/"}
                       className={`${
-                        currentRoute === "/"
-                          ? "border-b-2 font-bold text-primary"
-                          : ""
+                        currentRoute === "/" ? "border-b-2 font-bold text-primary" : ""
                       } w-fit font-normal hover:border-b-2 hover:font-bold hover:text-primary duration-100 ease-out`}
                     >
                       Home
@@ -162,9 +153,7 @@ export default function Header() {
                     <Link
                       href={"/products"}
                       className={`${
-                        currentRoute === "/products"
-                          ? "border-b-2 font-bold text-primary"
-                          : ""
+                        currentRoute === "/products" ? "border-b-2 font-bold text-primary" : ""
                       } w-fit font-normal hover:border-b-2 hover:font-bold hover:text-primary duration-100 ease-out`}
                     >
                       Produtos
@@ -172,9 +161,7 @@ export default function Header() {
                     <Link
                       href={"/categories"}
                       className={`${
-                        currentRoute === "/categories"
-                          ? "border-b-2 font-bold text-primary"
-                          : ""
+                        currentRoute === "/categories" ? "border-b-2 font-bold text-primary" : ""
                       } w-fit font-normal hover:border-b-2 hover:font-bold hover:text-primary duration-100 ease-out`}
                     >
                       Categorias
@@ -182,9 +169,7 @@ export default function Header() {
                     <Link
                       href={"/my-orders"}
                       className={`${
-                        currentRoute === "/my-orders"
-                          ? "border-b-2 font-bold text-primary"
-                          : ""
+                        currentRoute === "/my-orders" ? "border-b-2 font-bold text-primary" : ""
                       } w-fit font-normal hover:border-b-2 hover:font-bold hover:text-primary duration-100 ease-out`}
                     >
                       Meus pedidos
@@ -197,9 +182,7 @@ export default function Header() {
                   <button className="w-full bg-primary text-white py-2 rounded-lg text-center font-semibold">
                     Entrar
                   </button>
-                  <p className="mt-2 text-center text-sm text-zinc-600 underline pt-[17px]">
-                    Cadastre-se
-                  </p>
+                  <p className="mt-2 text-center text-sm text-zinc-600 underline pt-[17px]">Cadastre-se</p>
                 </div>
               </div>
             </>
@@ -208,12 +191,16 @@ export default function Header() {
 
         {isSearchOpen && (
           <Input
-            type="email"
+            type="text"
             placeholder="Pesquisar produto..."
             className="w-full h-14 placeholder:text-light-gray-2 border-0 focus-visible:ring-0 mt-2 p-2 rounded-lg bg-gray-100 text-sm outline-none transition-all duration-200"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            onKeyPress={handleKeyPress}
+            autoFocus
           />
         )}
       </div>
     </>
-  );
+  )
 }

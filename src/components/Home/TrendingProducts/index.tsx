@@ -14,9 +14,9 @@ export default function TrendingProducts() {
     },
     {
       id: "2",
-      image: "/tenisproduct.png",
+      image: "/nike-shoe.png",
       category: "Tênis",
-      title: "K-Swiss V8 - Masculino",
+      title: "Air Jordan - Masculino",
       originalPrice: 200,
       currentPrice: 100,
       discountPercentage: 30,

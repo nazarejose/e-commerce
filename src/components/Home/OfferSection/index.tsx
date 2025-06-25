@@ -31,7 +31,7 @@ export default function OfferSection() {
             </p>
           </div>
 
-          <Button className="bg-primary hover:bg-primary text-light-gray-3 w-auto lg:w-52 px-8 py-3 rounded-lg font-bold transition-colors">
+          <Button className="bg-primary hover:bg-tertiary text-light-gray-3 w-auto lg:w-52 px-8 py-3 rounded-lg font-bold transition-colors cursor-pointer">
             Ver Oferta
           </Button>
         </div>
