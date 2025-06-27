@@ -1,15 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Product } from "@/types/ProductFilterProps"; 
 
-interface ProductCardProps {
-  id: string
-  image: string
-  category: string
-  title: string
-  originalPrice: number
-  currentPrice: number
-  discountPercentage?: number
-  href?: string
+interface ProductCardProps extends Pick<Product, 
+  | 'id' 
+  | 'image' 
+  | 'category' 
+  | 'title' 
+  | 'originalPrice' 
+  | 'currentPrice' 
+  | 'discountPercentage'
+>{
+  href?: string;
 }
 
 export function ProductCard({
