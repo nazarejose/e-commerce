@@ -80,7 +80,7 @@ Siga as instruções abaixo para executar o projeto em seu ambiente de desenvolv
 
 1.  **Clone o repositório:**
     ```bash
-    git clone [https://github.com/nazarejose/e-commerce](https://github.com/nazarejose/e-commerce)
+    git clone https://github.com/nazarejose/e-commerce
     ```
 
 2.  **Navegue até o diretório do projeto:**
