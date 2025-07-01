@@ -23,7 +23,7 @@ export default function PromotionalCards({ cards }: PromotionalCardsProps) {
               src={card.backgroundImage || "/placeholder.svg"}
               alt={card.alt}
               fill
-              sizes="100vw"
+              sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
               className="object-cover transition-transform duration-300 group-hover:scale-105"
               priority={true}
             />

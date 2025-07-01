@@ -5,19 +5,19 @@ const promotionalCardsData = [
   {
     id: "supreme",
     discount: "30% OFF",
-    backgroundImage: "/collection/collection-1.png", 
+    backgroundImage: "/collection-1.png", 
     alt: "Supreme hoodie collection",
   },
   {
     id: "adidas",
     discount: "30% OFF",
-    backgroundImage: "/collection/collection-2.png",
+    backgroundImage: "/collection-2.png",
     alt: "Adidas sneaker collection",
   },
   {
     id: "beats",
     discount: "30% OFF",
-    backgroundImage: "/collection/collection-3.png",
+    backgroundImage: "/collection-3.png",
     alt: "Beats headphones collection",
   },
 ]
