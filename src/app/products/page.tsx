@@ -1,14 +1,13 @@
-"use client"
+"use client";
 
-import { useState, useMemo } from "react"
-import { Filter } from "lucide-react" // Ícone para o botão de filtro mobile
-import { Product } from "@/types/ProductFilterProps"
-import { mockProducts } from "@/lib/mocks/products"
-
-import FilterGroup from "@/components/ProductListPage/FilterGroup"
-import Section from "@/components/ProductListPage/Section"
-import ProductList from "@/components/ProductListPage/ProductList"
-import MobileFilterDrawer from "@/components/ProductListPage/MobileFilterDrawer"
+import { useState, useMemo } from "react";
+import { Filter } from "lucide-react";
+import { Product } from "@/types/ProductFilterProps";
+import { mockProducts } from "@/lib/mocks/products";
+import FilterGroup from "@/components/ProductListPage/FilterGroup";
+import Section from "@/components/ProductListPage/Section";
+import ProductList from "@/components/ProductListPage/ProductList";
+import MobileFilterDrawer from "@/components/ProductListPage/MobileFilterDrawer";
 
 interface FilterOption {
   text: string;
@@ -16,84 +15,105 @@ interface FilterOption {
 }
 
 export default function ProductListingPage() {
-
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  const [sortBy, setSortBy] = useState<string>("")
+  const [sortBy, setSortBy] = useState<string>("");
   const [filters, setFilters] = useState({
     brand: [] as string[],
     category: [] as string[],
-    gender: [] as string[], 
+    gender: [] as string[],
     state: "",
-  })
-
+  });
 
   const filteredAndSortedProducts = useMemo(() => {
-    let filtered = [...mockProducts]
+    let filtered = [...mockProducts];
 
-    const hasActiveFilters = 
+    const hasActiveFilters =
       filters.brand.length > 0 ||
       filters.category.length > 0 ||
       filters.gender.length > 0 ||
       filters.state !== "";
 
     if (hasActiveFilters) {
-        filtered = mockProducts.filter(product => {
-            const brandMatch = filters.brand.length === 0 || filters.brand.includes(product.brand.toLowerCase());
-            const categoryMatch = filters.category.length === 0 || filters.category.includes(product.category.toLowerCase().replace(/ /g, "-"));
-            const genderMatch = filters.gender.length === 0 || filters.gender.includes(product.gender.toLowerCase());
-            const stateMatch = filters.state === "" || filters.state === product.state.toLowerCase();
-            return brandMatch && categoryMatch && genderMatch && stateMatch;
-        });
+      filtered = mockProducts.filter((product) => {
+        const brandMatch =
+          filters.brand.length === 0 ||
+          filters.brand.includes(product.brand.toLowerCase());
+        const categoryMatch =
+          filters.category.length === 0 ||
+          filters.category.includes(
+            product.category.toLowerCase().replace(/ /g, "-")
+          );
+        const genderMatch =
+          filters.gender.length === 0 ||
+          filters.gender.includes(product.gender.toLowerCase());
+        const stateMatch =
+          filters.state === "" || filters.state === product.state.toLowerCase();
+        return brandMatch && categoryMatch && genderMatch && stateMatch;
+      });
     }
 
-    // Aplica ordenação ao resultado (filtrado ou não)
     if (sortBy === "menor-preco") {
-      filtered.sort((a, b) => a.currentPrice - b.currentPrice)
+      filtered.sort((a, b) => a.currentPrice - b.currentPrice);
     } else if (sortBy === "maior-preco") {
-      filtered.sort((a, b) => b.currentPrice - a.currentPrice)
+      filtered.sort((a, b) => b.currentPrice - a.currentPrice);
     }
 
-    return filtered
-  }, [sortBy, filters])
+    return filtered;
+  }, [sortBy, filters]);
 
-  const brandOptions: FilterOption[] = useMemo(() => 
-    [...new Set(mockProducts.map(p => p.brand))].map(brand => ({ text: brand, value: brand.toLowerCase() }))
-  , []);
-  
-  const categoriaOptions: FilterOption[] = useMemo(() => 
-    [...new Set(mockProducts.map(p => p.category))].map(category => ({
-      text: category,
-      value: category.toLowerCase().replace(/ /g, "-")
-    }))
-  , []);
+  const brandOptions: FilterOption[] = useMemo(
+    () =>
+      [...new Set(mockProducts.map((p) => p.brand))].map((brand) => ({
+        text: brand,
+        value: brand.toLowerCase(),
+      })),
+    []
+  );
 
-  const generoOptions: FilterOption[] = useMemo(() => 
-    [...new Set(mockProducts.map(p => p.gender))].map(gender => ({
-      text: gender,
-      value: gender.toLowerCase()
-    }))
-  , []);
+  const categoriaOptions: FilterOption[] = useMemo(
+    () =>
+      [...new Set(mockProducts.map((p) => p.category))].map((category) => ({
+        text: category,
+        value: category.toLowerCase().replace(/ /g, "-"),
+      })),
+    []
+  );
+
+  const generoOptions: FilterOption[] = useMemo(
+    () =>
+      [...new Set(mockProducts.map((p) => p.gender))].map((gender) => ({
+        text: gender,
+        value: gender.toLowerCase(),
+      })),
+    []
+  );
 
   const estadoOptions: FilterOption[] = [
     { text: "Novo", value: "novo" },
     { text: "Usado", value: "usado" },
-  ]
-  
-  const handleFilterChange = (filterType: keyof typeof filters, value: string, isChecked?: boolean) => {
-    setFilters(prev => {
-        const newFilters = {...prev};
-        if (Array.isArray(newFilters[filterType])) {
-            const currentValues = prev[filterType] as string[];
-            if (isChecked) {
-                newFilters[filterType] = [...currentValues, value] as any;
-            } else {
-                newFilters[filterType] = currentValues.filter(v => v !== value) as any;
-            }
+  ];
+
+  const handleFilterChange = (
+    filterType: keyof typeof filters,
+    value: string,
+    isChecked?: boolean
+  ) => {
+    setFilters((prev) => {
+      const newFilters = { ...prev };
+      if (Array.isArray(newFilters[filterType])) {
+        const currentValues = prev[filterType] as string[];
+        if (isChecked) {
+          newFilters[filterType] = [...currentValues, value] as any;
         } else {
-            newFilters[filterType] = value as any;
+          newFilters[filterType] = currentValues.filter(
+            (v) => v !== value
+          ) as any;
         }
-        return newFilters;
+      } else {
+        newFilters[filterType] = value as any;
+      }
+      return newFilters;
     });
   };
 
@@ -101,10 +121,12 @@ export default function ProductListingPage() {
     <div className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
-            <h1 className="text-2xl font-bold">Resultados para "Tênis"</h1>
-            <p className="text-sm text-gray-500">{filteredAndSortedProducts.length} produtos</p>
+          <h1 className="text-2xl font-bold">Resultados para "Tênis"</h1>
+          <p className="text-sm text-gray-500">
+            {filteredAndSortedProducts.length} produtos
+          </p>
         </div>
-        
+
         <div className="flex items-center justify-between mb-6 lg:hidden">
           <select
             value={sortBy}
@@ -128,7 +150,9 @@ export default function ProductListingPage() {
         <div className="flex gap-8">
           <aside className="w-[308px] flex-shrink-0 hidden lg:block">
             <div className="mb-6">
-              <label className="block text-base font-medium text-gray-700 mb-2">Ordenar por</label>
+              <label className="block text-base font-medium text-gray-700 mb-2">
+                Ordenar por
+              </label>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
@@ -139,37 +163,44 @@ export default function ProductListingPage() {
                 <option value="maior-preco">Maior preço</option>
               </select>
             </div>
-            
+
             <div className="mb-6">
-                <h2 className="text-base font-medium text-gray-700 mb-2">Filtrar por</h2>
-                <hr className="border-gray-200" />
+              <h2 className="text-base font-medium text-gray-700 mb-2">
+                Filtrar por
+              </h2>
+              <hr className="border-gray-200" />
             </div>
 
-            <FilterGroup 
-                title="Marca" 
-                inputType="checkbox" 
-                options={brandOptions}
-                onChange={(value, isChecked) => handleFilterChange('brand', value, isChecked)} 
+            <FilterGroup
+              title="Marca"
+              inputType="checkbox"
+              options={brandOptions}
+              onChange={(value, isChecked) =>
+                handleFilterChange("brand", value, isChecked)
+              }
             />
-            <FilterGroup 
-                title="Categoria" 
-                inputType="checkbox" 
-                options={categoriaOptions}
-                onChange={(value, isChecked) => handleFilterChange('category', value, isChecked)}
+            <FilterGroup
+              title="Categoria"
+              inputType="checkbox"
+              options={categoriaOptions}
+              onChange={(value, isChecked) =>
+                handleFilterChange("category", value, isChecked)
+              }
             />
-            <FilterGroup 
-                title="Gênero" 
-                inputType="checkbox" 
-                options={generoOptions}
-                onChange={(value, isChecked) => handleFilterChange('gender', value, isChecked)}
+            <FilterGroup
+              title="Gênero"
+              inputType="checkbox"
+              options={generoOptions}
+              onChange={(value, isChecked) =>
+                handleFilterChange("gender", value, isChecked)
+              }
             />
-            <FilterGroup 
-                title="Estado" 
-                inputType="radio" 
-                options={estadoOptions}
-                onChange={(value) => handleFilterChange('state', value)}
+            <FilterGroup
+              title="Estado"
+              inputType="radio"
+              options={estadoOptions}
+              onChange={(value) => handleFilterChange("state", value)}
             />
-         
           </aside>
 
           <main className="flex-1">
@@ -188,5 +219,5 @@ export default function ProductListingPage() {
         estadoOptions={estadoOptions}
       />
     </div>
-  )
+  );
 }
