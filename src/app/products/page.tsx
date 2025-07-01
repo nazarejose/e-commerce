@@ -2,10 +2,8 @@
 
 import { useState, useMemo } from "react";
 import { Filter } from "lucide-react";
-import { Product } from "@/types/ProductFilterProps";
 import { mockProducts } from "@/lib/mocks/products";
 import FilterGroup from "@/components/ProductListPage/FilterGroup";
-import Section from "@/components/ProductListPage/Section";
 import ProductList from "@/components/ProductListPage/ProductList";
 import MobileFilterDrawer from "@/components/ProductListPage/MobileFilterDrawer";
 
@@ -14,14 +12,21 @@ interface FilterOption {
   value: string;
 }
 
+type FiltersState = {
+  brand: string[];
+  category: string[];
+  gender: string[];
+  state: string;
+};
+
 export default function ProductListingPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const [sortBy, setSortBy] = useState<string>("");
-  const [filters, setFilters] = useState({
-    brand: [] as string[],
-    category: [] as string[],
-    gender: [] as string[],
+  const [filters, setFilters] = useState<FiltersState>({
+    brand: [],
+    category: [],
+    gender: [],
     state: "",
   });
 
@@ -95,23 +100,26 @@ export default function ProductListingPage() {
   ];
 
   const handleFilterChange = (
-    filterType: keyof typeof filters,
+    filterType: keyof FiltersState,
     value: string,
     isChecked?: boolean
   ) => {
     setFilters((prev) => {
       const newFilters = { ...prev };
-      if (Array.isArray(newFilters[filterType])) {
-        const currentValues = prev[filterType] as string[];
+
+      if (
+        filterType === "brand" ||
+        filterType === "category" ||
+        filterType === "gender"
+      ) {
+        const currentValues = prev[filterType];
         if (isChecked) {
-          newFilters[filterType] = [...currentValues, value] as any;
+          newFilters[filterType] = [...currentValues, value];
         } else {
-          newFilters[filterType] = currentValues.filter(
-            (v) => v !== value
-          ) as any;
+          newFilters[filterType] = currentValues.filter((v) => v !== value);
         }
       } else {
-        newFilters[filterType] = value as any;
+        newFilters.state = value;
       }
       return newFilters;
     });
@@ -121,7 +129,7 @@ export default function ProductListingPage() {
     <div className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold">Resultados para "Tênis"</h1>
+          <h1 className="text-2xl font-bold">Resultados para 'Tênis'</h1>
           <p className="text-sm text-gray-500">
             {filteredAndSortedProducts.length} produtos
           </p>

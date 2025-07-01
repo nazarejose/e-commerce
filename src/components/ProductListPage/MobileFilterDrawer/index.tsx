@@ -8,10 +8,12 @@ interface FilterOption {
   value: string;
 }
 
+type FilterType = 'brand' | 'category' | 'gender' | 'state';
+
 interface MobileFilterDrawerProps {
   isOpen: boolean
   onClose: () => void
-  onFilterChange: (filterType: any, value: string, isChecked?: boolean) => void
+  onFilterChange: (filterType: FilterType, value: string, isChecked?: boolean) => void
   brandOptions: FilterOption[]
   categoriaOptions: FilterOption[]
   generoOptions: FilterOption[]
@@ -27,24 +29,23 @@ export default function MobileFilterDrawer({
   generoOptions,
   estadoOptions,
 }: MobileFilterDrawerProps) {
-
   return (
     <div
       className={`
         fixed inset-0 z-40 lg:hidden
         transition-opacity duration-300 ease-in-out
-        ${isOpen ? 'bg-black/50 pointer-events-auto' : 'bg-transparent pointer-events-none'}
+        ${isOpen ? 'bg-black/75 pointer-events-auto' : 'bg-transparent pointer-events-none'}
       `}
       onClick={onClose}
     >
       <div
         className={`
-        fixed top-0 left-0 h-full w-full max-w-xs bg-white z-50 {/* ALTERADO AQUI */}
-        p-6 overflow-y-auto
-        transition-transform duration-300 ease-in-out
-        ${isOpen ? 'transform-none' : '-translate-x-full'} 
-      `}
-            onClick={(e) => e.stopPropagation()} 
+          fixed top-0 left-0 h-full w-full max-w-xs bg-white z-50 
+          p-6 overflow-y-auto
+          transition-transform duration-300 ease-in-out
+          ${isOpen ? 'transform-none' : '-translate-x-full'} 
+        `}
+        onClick={(e) => e.stopPropagation()} 
       >
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg font-bold">Filtrar por</h2>

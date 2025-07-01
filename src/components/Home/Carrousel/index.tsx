@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 
 export default function Carrousel() {
@@ -42,23 +42,21 @@ export default function Carrousel() {
     },
   ];
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
-
+  }, [slides.length]);
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
   };
 
-   useEffect(() => {
+  useEffect(() => {
     const timer = setInterval(nextSlide, 12000);
     return () => clearInterval(timer);
-  }, []); 
+  }, [nextSlide]); 
 
   return (
-    <div className=" relative w-full mx-auto bg-gray-50 rounded-2xl overflow-hidden">
-    
+    <div className="relative w-full mx-auto bg-gray-50 rounded-2xl overflow-hidden">
       <div className="relative h-[681px] overflow-hidden">
         <div
           className="flex transition-transform duration-500 ease-in-out h-full"
@@ -68,7 +66,6 @@ export default function Carrousel() {
             <div key={index} className="w-full flex-shrink-0 h-full">
               {slide.type === "promo" ? (
                 <div className="flex flex-col md:flex-row items-center justify-between h-full py-6 md:py-8">
-                 
                   <div className="flex-1 flex justify-center items-center order-1 md:order-2 mb-6 md:mb-0">
                     <div className="relative">
                       <Image
@@ -80,10 +77,9 @@ export default function Carrousel() {
                       />
                     </div>
                     <div className="absolute top-4 right-4 md:top-8 md:right-8 w-16 h-16 md:w-36 md:h-36 z-10">
-                      <img src="/dot.svg" alt="Decoração" />
+                      <Image src="/dot.svg" alt="Decoração" width={144} height={144} />
                     </div>
                   </div>
-
                   
                   <div className="flex-1 max-w-md order-2 md:order-1 text-center md:text-left">
                     <div className="inline-block text-orange-400 font-bold text-[16px] text-xs px-3 py-1 rounded-full mb-4">
@@ -124,8 +120,7 @@ export default function Carrousel() {
           ))}
         </div>
       </div>
-
-    
+      
       <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 flex space-x-2">
         {slides.map((_, index) => (
           <button
