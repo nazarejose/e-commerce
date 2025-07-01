@@ -129,7 +129,7 @@ export default function ProductListingPage() {
     <div className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold">Resultados para 'Tênis'</h1>
+          <h1 className="text-2xl font-bold">Resultados para Tênis</h1>
           <p className="text-sm text-gray-500">
             {filteredAndSortedProducts.length} produtos
           </p>
