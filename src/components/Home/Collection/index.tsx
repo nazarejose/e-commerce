@@ -2,24 +2,24 @@ import PromotionalCards from "./promotional-cards"
 import FeaturedCollections from "./featured-collections"
 // Dados de exemplo para os cards promocionais
 const promotionalCardsData = [
-  {
-    id: "supreme",
-    discount: "30% OFF",
-    backgroundImage: "/collection-1.png",
-    alt: "Supreme hoodie collection",
-  },
-  {
-    id: "adidas",
-    discount: "30% OFF",
-    backgroundImage: "/collection-2.png",
-    alt: "Adidas sneaker collection",
-  },
-  {
-    id: "beats",
-    discount: "30% OFF",
-    backgroundImage: "/collection-3.png",
-    alt: "Beats headphones collection",
-  },
+  {
+    id: "supreme",
+    discount: "30% OFF",
+    backgroundImage: "/collection/collection-1.png", 
+    alt: "Supreme hoodie collection",
+  },
+  {
+    id: "adidas",
+    discount: "30% OFF",
+    backgroundImage: "/collection/collection-2.png",
+    alt: "Adidas sneaker collection",
+  },
+  {
+    id: "beats",
+    discount: "30% OFF",
+    backgroundImage: "/collection/collection-3.png",
+    alt: "Beats headphones collection",
+  },
 ]
 
 export default function Collection() {
