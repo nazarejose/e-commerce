@@ -64,7 +64,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
   return (
     <div className="min-h-screen bg-white">
    
-      <div className="bg-gray-50 py-3">
+      <div className="py-3">
         <div className="container mx-auto px-4">
           <nav className="flex text-sm text-gray-600 overflow-x-auto">
             <Link href="/" className="hover:text-gray-900 cursor-pointer whitespace-nowrap">

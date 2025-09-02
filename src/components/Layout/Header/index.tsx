@@ -34,7 +34,7 @@ export default function Header() {
       {/* desktop */}
       <div className="hidden lg:flex flex-col w-full justify-between">
         <div className="flex w-full h-[196px] items-center gap-3.5 justify-self-center-safe">
-          <Image src={HeaderLogo || "/placeholder.svg"} className="w-[253px] h-[44px]" alt="Digital College" />
+          <Image src={HeaderLogo || "/placeholder.svg"} className="w-[253px] h-[44px] cursor-pointer" alt="Digital College" />
           <div className="flex w-full space-x-2 bg-light-gray-3 rounded-lg pl-6 pr-4 flex-1">
             <Input
               type="text"
@@ -52,11 +52,11 @@ export default function Header() {
             <Link href="#register" className="underline pl-[48px] pr-[30px] whitespace-nowrap">
               Cadastre-se
             </Link>
-            <Button className="bg-primary antialiased text-smooth-white w-28 h-10 mr-[70px]">Entrar</Button>
+            <Button className="bg-primary antialiased text-smooth-white w-28 h-10 mr-[70px] cursor-pointer">Entrar</Button>
           </div>
 
           <div className="relative w-[33px] h-[29px]">
-            <Image src={Cart || "/placeholder.svg"} alt="Cart" className="rounded-lg w-6 h-6" />
+            <Image src={Cart || "/placeholder.svg"} alt="Cart" className="rounded-lg w-6 h-6 cursor-pointer" />
             <div className="absolute -top-1.5 -right-0.5 left w-[17px] h-[17px] bg-primary rounded-full border-0 text-center text-smooth-white text-xs font-bold">
               2
             </div>

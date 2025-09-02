@@ -24,7 +24,7 @@ const promotionalCardsData = [
 
 export default function Collection() {
   return (
-    <main className="min-h-full bg-gray-50">
+    <main className="min-h-full ">
 
       <section className="pt-8">
         <PromotionalCards cards={promotionalCardsData} />

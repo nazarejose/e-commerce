@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <div className="overflow-hidden -mx-[calc(50vw-50%)] font-normal flex flex-col gap-y-10 md:flex-row min-h-[805px] md:min-h-[450px] md:flex-wrap px-5 lg:px-[100px] pt-[50px] md:pt-[72px] pb-[22px] md:pb-[46px] bg-dark-gray text-smooth-white">
+    <div className="overflow-hidden font-normal flex flex-col gap-y-10 md:flex-row min-h-[805px] md:min-h-[450px] md:flex-wrap px-5 lg:px-[100px] pt-[50px] md:pt-[72px] pb-[22px] md:pb-[46px] bg-dark-gray text-smooth-white">
       
       <div className="flex flex-wrap gap-y-6 w-full md:w-1/3 2xl:flex-col 2xl:justify-center">
         <Image src={FooterLogo} className="w-44 h-8 2xl:mb-7" alt="Digital College" />

@@ -56,7 +56,7 @@ export default function Carrousel() {
   }, [nextSlide]); 
 
   return (
-    <div className="relative w-full mx-auto bg-gray-50 rounded-2xl overflow-hidden">
+    <div className="relative w-full mx-auto rounded-2xl overflow-hidden">
       <div className="relative h-[681px] overflow-hidden">
         <div
           className="flex transition-transform duration-500 ease-in-out h-full"
